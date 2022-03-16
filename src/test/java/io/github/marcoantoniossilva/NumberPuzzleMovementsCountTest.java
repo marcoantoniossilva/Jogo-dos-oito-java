@@ -2,20 +2,22 @@ package io.github.marcoantoniossilva;
 
 import io.github.marcoantoniossilva.puzzle.NumberPuzzle;
 import org.junit.Assert;
-import org.junit.Test;
 
-public class NumberPuzzleMovementsCountTest {
-  @Test
-  public void check() {
-    NumberPuzzle eightPuzzle = new NumberPuzzle(3);
-    String[][] orderlyBoard = {
-        {"1", "2", "3"},
-        {"4", "5", "6"},
-        {"7", "8", " "},
-    };
-    int expected = 8;
+public class NumberPuzzleMovementsCountTest extends BaseTest {
 
+  final private int expected = 8;
+  private int movesCount;
+
+  // Arrange (Organização/Preparação)
+  @Override
+  protected void arrange() {
+    eightPuzzle = new NumberPuzzle(3);
     eightPuzzle.setBoard(orderlyBoard);
+  }
+
+  // Act (Ação)
+  @Override
+  protected void act() {
     eightPuzzle.move("8");
     eightPuzzle.move("7");
     eightPuzzle.move("4");
@@ -24,8 +26,12 @@ public class NumberPuzzleMovementsCountTest {
     eightPuzzle.move("3");
     eightPuzzle.move("6");
     eightPuzzle.move("8");
+    movesCount = eightPuzzle.getNumberOfMoves();
+  }
 
-    Assert.assertEquals(expected, eightPuzzle.getNumberOfMoves());
-
+  // Assert (Afirmação)
+  @Override
+  public void assertTest() {
+    Assert.assertEquals(expected, movesCount);
   }
 }
